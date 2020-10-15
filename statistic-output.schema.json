@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://gem5.org/statistic-output.schema.json",
+  "title": "Architecture Simulator Statistics",
+  "description": "A set of statistics or results output from a computer architecture simulation",
+
+  "definitions": {
+    "statistic" : {
+      "type": "object",
+      "title": "Statistic",
+      "description": "A simulator statistic",
+      "properties": {
+        "type": {"type": "string" },
+        "value": {},
+        "unit": {"type": "string" },
+        "description": {"type": "string" }
+      },
+      "required": ["value"]
+    },
+
+    "scalar": {
+      "title": "Scalar",
+      "description": "A scalar statistic value (e.g., a count, latency, etc.)",
+      "allOf": [
+        {"$ref": "#/definitions/statistic"},
+        {
+          "properties": {
+            "type": { "const": "Scalar" },
+            "value": { "type": "number" }
+          }
+        }
+      ]
+    },
+
+    "distribution": {
+      "title": "Distribution",
+      "description": "A distribution of statistic values",
+      "allOf": [
+        {"$ref": "#/definitions/statistic"},
+        {
+          "properties": {
+            "type": { "const": "Distribution" },
+            "value": {
+              "type": "array",
+              "items": { "type": "integer", "minimum": 0 }
+              },
+            "bins": {
+              "type": "array",
+              "items": { "type": "number" }
+            },
+            "binSize": { "type": "number", "minimum": 0 },
+            "numBins": { "type": "integer", "minimum": 1 }
+          },
+          "oneOf": [
+            {
+              "required": ["value", "bins"]
+            },
+            {
+              "required": ["value", "binSize", "numBins"]
+            }
+          ]
+        }
+      ]
+    },
+
+    "strictStats" : {
+      "anyOf": [
+        {"$ref": "#/definitions/scalar"},
+        {"$ref": "#/definitions/distribution"}
+      ]
+    },
+
+    "model": {
+      "title": "Model",
+      "description": "A simulated model which has statistics and possibly other sub models",
+      "properties": {
+        "type": { "type": "string" }
+      },
+      "additionalProperties": {
+        "oneOf": [
+          { "$ref": "#/definitions/strictStats" },
+          { "$ref": "#/definitions/model" }
+        ]
+      },
+      "not": {
+        "properties": { "value": {} }
+      }
+    }
+
+
+  },
+
+  "type": "object",
+
+  "properties": {
+    "creationTime": {
+      "description": "The time this output was generated (wall clock time) in Date format",
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+
+  "additionalProperties": {
+    "anyOf": [
+      { "$ref": "#/definitions/strictStats" },
+      { "$ref": "#/definitions/model" }
+    ]
+  }
+}
