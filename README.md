@@ -312,3 +312,20 @@ This would allow us to say "The file contains a set of named stats and/or models
 - We can have generic types which have "shared" stats between simulators (and other things)
 - We allow simulators to have more specific types
 - Allow for the simulator to output once the metadata and then simply output the values in all other outputs.
+- Still need to define "alternative" schemas
+  - CSV
+  - ???
+
+### Other potential info to include
+
+- Data type of the result (e.g., u64, s32, f32)
+  - The other option is to just use "integer" and "number" from json schema
+- Other metadata with each dump/file
+
+## Other questions to answer or potential features
+
+- How to represent time-series data
+  - How to "tag" each dump
+- Dump different stats at different frequencies
+  - How to represent this in the above schema
+  - gem5 doesn't currently support this (easily), but could be extended
