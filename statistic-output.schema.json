@@ -5,6 +5,12 @@
   "description": "A set of statistics or results output from a computer architecture simulation",
 
   "definitions": {
+    "storageType": {
+      "type": "string",
+      "enum": ["u32", "u64", "s32", "s64", "f32", "f64"],
+      "description": "The underlying storage type"
+    },
+
     "statistic" : {
       "type": "object",
       "title": "Statistic",
@@ -26,7 +32,8 @@
         {
           "properties": {
             "type": { "const": "Scalar" },
-            "value": { "type": "number" }
+            "value": { "type": "number" },
+            "datatype": {"$ref": "#/definitions/storageType"}
           }
         }
       ]

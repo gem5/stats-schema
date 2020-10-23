@@ -309,9 +309,14 @@ This would allow us to say "The file contains a set of named stats and/or models
 
 ## Ideas
 
-- We can have generic types which have "shared" stats between simulators (and other things)
-- We allow simulators to have more specific types
+- We can have generic model which have "shared" stats between simulators (and other things)
+  - E.g., Caches
+    - Just hits/misses
+    - Keep it simple
+- We allow simulators to have more specific stats
 - Allow for the simulator to output once the metadata and then simply output the values in all other outputs.
+  - Want to have dynamic components
+  - Need to support stats appearing in the middle of simulation
 - Still need to define "alternative" schemas
   - CSV
   - ???
