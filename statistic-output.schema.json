@@ -113,11 +113,8 @@
           { "$ref": "#/definitions/model" }
         ]
       },
-      "not": {
-        "properties": { "value": {} }
-      },
 
-      "$comment": "Models cannot be empty (as specified in the `not` statement). However, I'm  not completely convinced this is the correct syntax/this specification actually implements the goal."
+      "$comment": "Right now, models can be empty. We may want to revisit this."
     },
 
     "cache": {
