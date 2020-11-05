@@ -2,14 +2,16 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://gem5.org/statistic-output.schema.json",
   "title": "Architecture Simulator Statistics",
-  "description": "A set of statistics or results output from a computer architecture simulation",
+  "description": "A set of statistics or results output from a computer architecture simulation. This schema is for a dump at a single point in time. For time-series data, you can have a file with many of these objects.",
 
   "definitions": {
 
     "storageType": {
       "type": "string",
       "enum": ["u32", "u64", "s32", "s64", "f32", "f64"],
-      "description": "The underlying storage type"
+      "description": "The underlying storage type",
+
+      "$comment": "We may or may not want to keep this. So far, we haven't found a need for it."
     },
 
     "timeConversion": {
@@ -26,19 +28,21 @@
     "statistic" : {
       "type": "object",
       "title": "Statistic",
-      "description": "A simulator statistic",
+      "description": "A simulator statistic. The name of the property is the name of this statistic. All statistics must have a `value` property. Each unique type should have its own schema. The `unit` should be some common unit of measure (e.g., seconds, meters, cycles, etc.). The `time` unit is special and can be converted to seconds by finding the closest `timeConversion` in the json hierarchy.",
       "properties": {
         "type": { "type": "string" },
         "value": {},
         "unit": { "type": "string" },
         "description": { "type": "string" }
       },
-      "required": ["value"]
+      "required": ["value"],
+
+      "$comment": "This is a generic statistic. It is 'extended' below as more specific statistic types through the use of `allOf`. By defining this general statistic type, we also allow others to compatibly add new types of statistics. For the general statistic, we don't have any specific type for value, it can take on any json type. This allows specialized statistics (e.g., Distribution) whose value is an array."
     },
 
     "scalar": {
       "title": "Scalar",
-      "description": "A scalar statistic value (e.g., a count, latency, etc.)",
+      "description": "A scalar statistic value (e.g., a count, latency, etc.). The `value` property holds the value of the statistic with an optional datatype specification. They `type` property must match 'Scalar'.",
       "allOf": [
         {"$ref": "#/definitions/statistic"},
         {
@@ -48,12 +52,14 @@
             "datatype": { "$ref": "#/definitions/storageType" }
           }
         }
-      ]
+      ],
+
+      "$comment": "The above `allOf` is similar to `extends` in java or other inheritance in object oriented languages. We're saying that a scalar must have all of the properties of a statistic, and also a value and datatype (optionally)."
     },
 
     "distribution": {
       "title": "Distribution",
-      "description": "A distribution of statistic values",
+      "description": "A distribution of statistic values. The `value` property holds the number of instances in each bin (i.e., this is a histogram). Bins can be defined either with a set size by using `binSize` and `numBins`, or bins can be defined with an array. If defined as an array, the `bins` property has the following form: `[bin0 start, bin0 end, bin1 end, bin2 end, ... binN end]`.",
       "allOf": [
         {"$ref": "#/definitions/statistic"},
         {
@@ -79,19 +85,24 @@
             }
           ]
         }
-      ]
+      ],
+
+      "$comment": "The `oneOf` above requires either `value` and `bins` or `value`, `binSize`, and `numBins` to allow either description of a distribution."
     },
 
     "strictStats" : {
       "anyOf": [
         {"$ref": "#/definitions/scalar"},
         {"$ref": "#/definitions/distribution"}
-      ]
+      ],
+
+      "$comment": "By using `strictStats` instead of just `statistic` as a reference you can constrain the validator to only accept 'standard' statistic types. This is useful for testing and development of this schema, but will likely be relaxed and change to any `statistic` in the final version."
     },
 
     "model": {
+      "type": "object",
       "title": "Model",
-      "description": "A simulated model which has statistics and possibly other sub models",
+      "description": "A simulated model which has statistics and possibly other sub models. The name of the property is the name of this model. Models can also have an optional `type` or a generic model type (e.g., a cache, a core, etc.). Specific types are defined in this schema. An optional `timeConversion` property defines how this model and all children models and statistics can convert `time` types to seconds.",
       "properties": {
         "type": { "type": "string" },
         "timeConversion": { "$ref": "#/definitions/timeConversion" }
@@ -104,9 +115,29 @@
       },
       "not": {
         "properties": { "value": {} }
-      }
-    }
+      },
 
+      "$comment": "Models cannot be empty (as specified in the `not` statement). However, I'm  not completely convinced this is the correct syntax/this specification actually implements the goal."
+    },
+
+    "cache": {
+      "title": "Generic cache statistics",
+      "description": "Contains generic statistics that all caches should report to allow compatibility between simulators.",
+      "allOf": [
+        {"$ref": "#/definitions/model"},
+        {
+          "properties": {
+            "type": { "const": "Cache" },
+            "hits": { "$ref": "#/definitions/scalar" },
+            "misses": { "$ref": "#/definitions/scalar" },
+            "accesses": { "$ref": "#/definitions/scalar" }
+          },
+          "required": ["type", "hits", "misses", "accesses"]
+        }
+      ],
+
+      "$comment": "This is just an example of a potential shared model type."
+    }
 
   },
 
@@ -135,4 +166,5 @@
       { "$ref": "#/definitions/model" }
     ]
   }
+
 }
