@@ -41,49 +41,43 @@
     },
 
     "scalar": {
+      "allOf": [ {"$ref": "#/definitions/statistic"} ],
       "title": "Scalar",
       "description": "A scalar statistic value (e.g., a count, latency, etc.). The `value` property holds the value of the statistic with an optional datatype specification. They `type` property must match 'Scalar'.",
-      "allOf": [
-        {"$ref": "#/definitions/statistic"},
-        {
-          "properties": {
-            "type": { "const": "Scalar" },
-            "value": { "type": "number" },
-            "datatype": { "$ref": "#/definitions/storageType" }
-          }
-        }
-      ],
+
+      "properties": {
+        "type": { "const": "Scalar" },
+        "value": { "type": "number" },
+        "datatype": { "$ref": "#/definitions/storageType" }
+      },
 
       "$comment": "The above `allOf` is similar to `extends` in java or other inheritance in object oriented languages. We're saying that a scalar must have all of the properties of a statistic, and also a value and datatype (optionally)."
     },
 
     "distribution": {
+      "allOf": [ {"$ref": "#/definitions/statistic"} ],
       "title": "Distribution",
       "description": "A distribution of statistic values. The `value` property holds the number of instances in each bin (i.e., this is a histogram). Bins can be defined either with a set size by using `binSize` and `numBins`, or bins can be defined with an array. If defined as an array, the `bins` property has the following form: `[bin0 start, bin0 end, bin1 end, bin2 end, ... binN end]`.",
-      "allOf": [
-        {"$ref": "#/definitions/statistic"},
-        {
-          "properties": {
-            "type": { "const": "Distribution" },
-            "value": {
-              "type": "array",
-              "items": { "type": "integer", "minimum": 0 }
-              },
-            "bins": {
-              "type": "array",
-              "items": { "type": "number" }
-            },
-            "binSize": { "type": "number", "minimum": 0 },
-            "numBins": { "type": "integer", "minimum": 1 }
+
+      "properties": {
+        "type": { "const": "Distribution" },
+        "value": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 }
           },
-          "oneOf": [
-            {
-              "required": ["value", "bins"]
-            },
-            {
-              "required": ["value", "binSize", "numBins"]
-            }
-          ]
+        "bins": {
+          "type": "array",
+          "items": { "type": "number" }
+        },
+        "binSize": { "type": "number", "minimum": 0 },
+        "numBins": { "type": "integer", "minimum": 1 }
+      },
+      "oneOf": [
+        {
+          "required": ["value", "bins"]
+        },
+        {
+          "required": ["value", "binSize", "numBins"]
         }
       ],
 
