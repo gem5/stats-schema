@@ -57,7 +57,7 @@
     "distribution": {
       "allOf": [ {"$ref": "#/definitions/statistic"} ],
       "title": "Distribution",
-      "description": "A distribution of statistic values. The `value` property holds the number of instances in each bin (i.e., this is a histogram). Bins can be defined either with a set size by using `binSize` and `numBins`, or bins can be defined with an array. If defined as an array, the `bins` property has the following form: `[bin0 start, bin0 end, bin1 end, bin2 end, ... binN end]`.",
+      "description": "A distribution of statistic values. The `value` property holds the number of instances in each bin (i.e., this is a histogram). Bins can be defined either with a set size by using `binSize` and `numBins`, or `bins` can be defined with an array. The value should be an array with a length equal to `numBins` or the length of `bins` - 1. If defined as an array, the `bins` property has the following form: `[bin0 start, bin0 end, bin1 end, bin2 end, ... binN end]`.",
 
       "properties": {
         "type": { "const": "Distribution" },
