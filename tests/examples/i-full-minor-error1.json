@@ -1,0 +1,83 @@
+{
+    "timeConversion": {
+        "scaleFactor": 1000000000000,
+        "description": "Fake scale factor"
+    },
+    "simulatedBeginTime": 0,
+    "simulatedEndTime": 1000,
+    "my_system": {
+      "type": "System",
+      "cpus": [
+        {
+          "type": "CPU",
+          "committed_instructions": {
+            "value": 0,
+            "type": "Scalar",
+            "unit": "Count",
+            "description": "The number of instructions committed"
+          },
+          "tlb": {
+            "type": "TLB",
+            "data_hits": {
+              "value": 0,
+              "type": "Scalar",
+              "unit": "Count",
+              "description": "The number of hits from data accesses"
+            },
+            "inst_hits": {
+              "value": 0,
+              "type": "Scalar",
+              "unit": "Count",
+              "description": "The number of hits from instruction accesses"
+            }
+          },
+          "l1_cache": {
+            "type": "Cache",
+            "miss_latency": {
+              "type": "Distribution",
+              "bins": [0, 1.0e-8, 2.0e-8, 3.0e-8],
+              "value":[0, 0, 0],
+              "unit": "Time",
+              "description": "Latency of cache misses (includes both reads & writes)"
+            }
+          }
+        },
+        {
+          "tlb": {
+            "type": "TLB",
+            "data_hits": {
+              "type": "Scalar",
+              "unit": "Count",
+              "description": "The number of hits from data accesses"
+            },
+            "inst_hits": {
+              "value": 0,
+              "type": "Scalar",
+              "unit": "Count",
+              "description": "The number of hits from instruction accesses"
+            }
+          },
+          "l1_cache": {
+            "type": "Cache",
+            "miss_latency": {
+              "type": "Distribution",
+              "bins": [0, 1.0e-8, 2.0e-8, 3.0e-8],
+              "value":[0, 0, 0],
+              "unit": "Time",
+              "description": "Latency of cache misses (includes both reads & writes)"
+            }
+          }
+        }
+      ],
+      "l2_cache": {
+        "type": "Cache",
+        "miss_latency": {
+          "type": "Distribution",
+          "bins": [0, 1.0e-8, 2.0e-8, 3.0e-8],
+          "value":[0, 0, 0],
+          "unit": "Time",
+          "description": "Latency of cache misses (includes both reads & writes)"
+        }
+      }
+    }
+  }

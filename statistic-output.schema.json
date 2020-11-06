@@ -96,7 +96,7 @@
     "model": {
       "type": "object",
       "title": "Model",
-      "description": "A simulated model which has statistics and possibly other sub models. The name of the property is the name of this model. Models can also have an optional `type` or a generic model type (e.g., a cache, a core, etc.). Specific types are defined in this schema. An optional `timeConversion` property defines how this model and all children models and statistics can convert `time` types to seconds.",
+      "description": "A simulated model which has statistics and possibly other sub models. The property with sub models can optionally be an array (e.g., an array of CPUs). The name of the property is the name of this model. Models can also have an optional `type` or a generic model type (e.g., a cache, a core, etc.). Specific types are defined in this schema. An optional `timeConversion` property defines how this model and all children models and statistics can convert `time` types to seconds.",
       "properties": {
         "type": { "type": "string" },
         "timeConversion": { "$ref": "#/definitions/timeConversion" }
@@ -104,7 +104,11 @@
       "additionalProperties": {
         "oneOf": [
           { "$ref": "#/definitions/strictStats" },
-          { "$ref": "#/definitions/model" }
+          { "$ref": "#/definitions/model" },
+          {
+            "type": "array",
+            "items": { "$ref": "#/definitions/model" }
+          }
         ]
       },
       "minProperties": 1,
@@ -155,7 +159,11 @@
   "additionalProperties": {
     "anyOf": [
       { "$ref": "#/definitions/strictStats" },
-      { "$ref": "#/definitions/model" }
+      { "$ref": "#/definitions/model" },
+      {
+        "type": "array",
+        "items": { "$ref": "#/definitions/model" }
+      }
     ]
   }
 

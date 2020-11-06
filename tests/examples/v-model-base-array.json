@@ -1,0 +1,14 @@
+{
+    "cpus": [
+        {
+            "committed_instructions": {
+                "value": 0
+            }
+        },
+        {
+            "committed_instructions": {
+                "value": 0
+            }
+        }
+    ]
+}

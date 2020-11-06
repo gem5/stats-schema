@@ -1,0 +1,10 @@
+{
+  "tlb": {
+    "type": "TLB",
+    "data_hits": {
+      "type": "Scalar",
+      "unit": "Count",
+      "description": "The number of hits from data accesses"
+    }
+  }
+}
