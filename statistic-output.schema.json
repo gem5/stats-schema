@@ -107,8 +107,9 @@
           { "$ref": "#/definitions/model" }
         ]
       },
+      "minProperties": 1,
 
-      "$comment": "Right now, models can be empty. We may want to revisit this."
+      "$comment": "Right now, models cannot be empty. We may want to revisit this. I'd like to enforce that a model doesn't have a `value` property so it can easily be differentiated from stats, but I can't figure out how."
     },
 
     "cache": {
