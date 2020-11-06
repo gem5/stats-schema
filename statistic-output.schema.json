@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://gem5.org/statistic-output.schema.json",
+
   "title": "Architecture Simulator Statistics",
   "description": "A set of statistics or results output from a computer architecture simulation. This schema is for a dump at a single point in time. For time-series data, you can have a file with many of these objects.",
 
