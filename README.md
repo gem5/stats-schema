@@ -1,4 +1,4 @@
-# stats-schema
+# simstats schema
 
 A proposal for a shared statistics schema for computer architecture simulators.
 
@@ -45,7 +45,7 @@ JSON Schema also has the ability to validate an output against the schema.
 However, we expect that this schema will be used by the simulator developers to design their statistic outputs and by visualization developers to visualize and represent those output.
 General simulator users shouldn't have to worry about this schema and can simply use the output from the simulators.
 
-The file [statistic-output.schema.json](./statistic-output.schema.json) contains the current draft of the schema.
+The file [simstats.schema.json](./simstats.schema.json) contains the current draft of the schema.
 
 ### Testing the schema
 
@@ -285,7 +285,7 @@ I think this is a key idea to enable this.
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://gem5.org/statistic-output.schema.json",
+  "$id": "http://gem5.org/simstats.schema.json",
   "title": "Architecture Simulator Statistics",
   "description": "A set of statistcs or results output from a computer architecture simulation",
   "type": "object",

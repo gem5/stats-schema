@@ -27,7 +27,7 @@ def validate_instance(instance_path, schema, expect_valid = True):
 
 
 def main():
-    schema_file = '../statistic-output.schema.json'
+    schema_file = '../simstats.schema.json'
     with open(schema_file) as f:
         schema = load(f)
 
