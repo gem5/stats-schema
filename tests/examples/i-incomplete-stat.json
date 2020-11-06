@@ -1,0 +1,5 @@
+{
+    "data_hits": {
+        "description": "The number of hits from data accesses"
+      }
+}

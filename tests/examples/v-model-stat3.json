@@ -1,0 +1,14 @@
+{
+    "l1cache": {
+        "type": "Cache",
+        "timeConversion": {
+            "scaleFactor": 1,
+            "description": "Fake scale factor"
+        },
+        "cycles": {
+            "value": 1000,
+            "description": "This is the number of cycles",
+            "unit": "Cycles"
+        }
+    }
+}

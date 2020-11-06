@@ -1,0 +1,14 @@
+{
+    "miss_latency": {
+        "type": "Distribution",
+        "binSize": 10,
+        "value": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "unit": "Time",
+        "description": "Latency of cache misses (includes both reads & writes)"
+    }
+}

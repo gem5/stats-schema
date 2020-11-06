@@ -1,0 +1,9 @@
+{
+    "cycles": {
+        "type": "Scalar",
+        "value": 100,
+        "system": {
+            "l1_cache": {}
+        }
+    }
+}

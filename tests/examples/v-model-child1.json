@@ -1,0 +1,9 @@
+{
+    "system": {
+        "l1_cache": {
+            "cycles": {
+                "value": 100
+            }
+        }
+    }
+}

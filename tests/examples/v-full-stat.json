@@ -1,0 +1,7 @@
+{
+    "cycles": {
+        "value": 1000,
+        "description": "This is the number of cycles",
+        "unit": "Cycles"
+    }
+}

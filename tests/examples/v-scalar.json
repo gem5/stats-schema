@@ -1,0 +1,8 @@
+{
+    "data_hits": {
+        "value": 0,
+        "type": "Scalar",
+        "unit": "Count",
+        "description": "The number of hits from data accesses"
+      }
+}
