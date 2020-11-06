@@ -1,19 +1,109 @@
 # stats-schema
-A proposal for a shared statistics schema
+
+A proposal for a shared statistics schema for computer architecture simulators.
+
+Initially, we will be targeting the JSON output format, but we plan to support many other output formats in the future (e.g., CSV, HDF5, pandas, etc.).
+
+## Background
+
+There are many computer architecture simulators (e.g., [gem5](http://www.gem5.org/), [SST](http://sst-simulator.org/), [DRAMSim](https://github.com/umd-memsys/DRAMsim3), and [GPGPU-Sim](http://www.gpgpu-sim.org/)), and each of them have their own output formats, which are often poorly defined.
+This causes pain for researchers and students using these simulators.
+
+Some pain points include:
+
+- Writing custom text parsing code for each simulator (or multiple time for the same simulator!)
+- Confusion on the meaning of statistics
+- Incompatibility between simulators, especially when used together (e.g., gem5+DRAMSim)
+
+**The goal of this working group is to define a common schema for computer architecture simulator statistics.**
+With this common schema, we hope to enable better compatibility between simulators and to ease the burden on simulator users.
+
+## This repository
+
+This repository contains a proposal for a statistic schema using [JSON Schema](https://json-schema.org).
+
+### JSON Schema
+
+A good starting guide to JSON Schema is [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/index.html).
+JSON Schema is most related to [database schemas](https://en.wikipedia.org/wiki/Database_schema) and simply defines the *format* of statistics.
+Simulators must implement statistic output that follows this schema.
+
+JSON Schema also has the ability to validate an output against the schema.
+However, we expect that this schema will be used by the simulator developers to design their statistic outputs and by visualization developers to visualize and represent those output.
+General simulator users shouldn't have to worry about this schema and can simply use the output from the simulators.
+
+The file <statistic-output.schema.json> contains the current draft of the schema.
+
+### Testing the schema
+
+The <tests> directory contains a simple python script to test the schema.
+
+To run the tests, you can use the following code:
+
+```sh
+pip3 install -r requirements.txt
+cd tests
+python3 test.py
+```
+
+This test will validate the schema.
+Then, it will validate all of the files in <tests/examples>.
+Details of these files can be found in the [README](tests/examples/README.md) in that directory.
+It contains a set of valid and invalid examples of statistics files in json format.
+
+## Understanding the schema file
+
+The schema file begins with a title and description of the overall schema as well as some JSON Schema specific information.
+
+Then, there is a section of "definitions."
+These are "types" that can be used throughout the rest of the schema.
+You can think of these as specializations of the built-in [JSON types](https://json-schema.org/understanding-json-schema/reference/type.html).
+
+> Note: We may want to break this schema into multiple documents, which is possible to do in JSON Schema
+
+Each of these types also has a title and a description.
+This is the documentation for the user (simulator developer, in this case) to understand what this definition is supposed to represent.
+
+For objects, we specify the *properties* that we expect these objects to have.
+For the most part, properties are *optional* to support simpler/smaller/compressed files.
+However, all statistics must have a `value`, and there are a few other required properties.
+See comments in the schema for details.
+
+### Style
+
+> Note: We will almost certainly want to revisit this
+
+#### Types
+
+The current style for defining "types" is camel case with a lowercase first letter.
+
+#### Property names
+
+The current style for property names is camel case with a lowercase first letter.
+
+------------
+
+Below here is some older information
 
 ## Related works
+
+### Some generally related works
 
 - Generally, data serialization
 - HPC serialization
   - Comprehensive Resource Use Monitoring for HPCSystems with TACC Stats
-    - https://www.tacc.utexas.edu/documents/1084364/1191938/tacc_stats_hust.pdf (HPC users workshop)
+    - <https://www.tacc.utexas.edu/documents/1084364/1191938/tacc_stats_hust.pdf> (HPC users workshop)
     - No schema
   - Serialization and deserialization of complex data structures,and applications in high performance computing
-    - https://mosaic.mpi-cbg.de/docs/Zaluzhnyi2016.pdf (masters thesis)
+    - <https://mosaic.mpi-cbg.de/docs/Zaluzhnyi2016.pdf> (masters thesis)
     - Avro
 - System monitoring
+  - Prometheus
+    - <https://prometheus.io/>
+    - Focused on time series
+    - Doesn't have a set schema except for simple data types
 
-## Projects
+### Projects
 
 - Advanced Scientific Data format (pronounced AZ-diff)
   - https://asdf-standard.readthedocs.io/en/1.5.0/index.html
@@ -37,7 +127,7 @@ A proposal for a shared statistics schema
 
 ## Other links
 
-- https://en.wikipedia.org/wiki/Comparison_of_data-serialization_formats
+- <https://en.wikipedia.org/wiki/Comparison_of_data-serialization_formats>
 
 ## Requirements
 
