@@ -4,6 +4,19 @@ A proposal for a shared statistics schema for computer architecture simulators.
 
 Initially, we will be targeting the JSON output format, but we plan to support many other output formats in the future (e.g., CSV, HDF5, pandas, etc.).
 
+This repository is currently maintained by Jason Lowe-Power <jason@lowepower.com>.
+All questions/comments can be directed toward Jason via email or creating an issue on this repository.
+
+The current working group members are
+
+- Jonathan Beard (Arm)
+- Bobby Bruce (gem5, UC Davis)
+- Ahmed Gheith (Arm)
+- Jason Lowe-Power (gem5, UC Davis)
+- Andreas Sandberg (gem5, Arm)
+- Arun Rodrigues (SST, Sandia)
+- Gwen Voskuilen (SST, Sandia)
+
 ## Background
 
 There are many computer architecture simulators (e.g., [gem5](http://www.gem5.org/), [SST](http://sst-simulator.org/), [DRAMSim](https://github.com/umd-memsys/DRAMsim3), and [GPGPU-Sim](http://www.gpgpu-sim.org/)), and each of them have their own output formats, which are often poorly defined.
