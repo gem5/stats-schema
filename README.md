@@ -45,7 +45,7 @@ JSON Schema also has the ability to validate an output against the schema.
 However, we expect that this schema will be used by the simulator developers to design their statistic outputs and by visualization developers to visualize and represent those output.
 General simulator users shouldn't have to worry about this schema and can simply use the output from the simulators.
 
-The file <statistic-output.schema.json> contains the current draft of the schema.
+The file [statistic-output.schema.json](./statistic-output.schema.json) contains the current draft of the schema.
 
 ### Testing the schema
 
@@ -60,7 +60,7 @@ python3 test.py
 ```
 
 This test will validate the schema.
-Then, it will validate all of the files in <tests/examples>.
+Then, it will validate all of the files in [tests/examples](tests/examples).
 Details of these files can be found in the [README](tests/examples/README.md) in that directory.
 It contains a set of valid and invalid examples of statistics files in json format.
 
