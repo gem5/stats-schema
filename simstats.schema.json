@@ -31,9 +31,17 @@
       "title": "Statistic",
       "description": "A simulator statistic. The name of the property is the name of this statistic. All statistics must have a `value` property. Each unique type should have its own schema. The `unit` should be some common unit of measure (e.g., seconds, meters, cycles, etc.). The `time` unit is special and can be converted to seconds by finding the closest `timeConversion` in the json hierarchy.",
       "properties": {
-        "type": { "type": "string" },
-        "value": {},
-        "unit": { "type": "string" },
+        "type": {
+          "type": "string",
+          "description": "The type of statistic (e.g., Scalar, Distribution, etc.). Some specializations are defined in this schema. Any extensions are allowed."
+        },
+        "value": {
+          "description": "The value of the stat. Generally, this can by any JSON type, but it may be specified in a specialization. This is the only required property, and in other output formats may be the only property for a stat."
+        },
+        "unit": {
+          "type": "string",
+          "description": "The unit of measure for this statistic. Useful for documentation. Not required, but highly suggested."
+        },
         "description": { "type": "string" }
       },
       "required": ["value"],
