@@ -1,0 +1,11 @@
+{
+    "miss_latency": {
+        "type": "Accumulator",
+        "value": 200,
+        "min": 10,
+        "max": 100,
+        "sumSquared": 1000,
+        "unit": "Time",
+        "description": "Latency of cache misses (includes both reads & writes)"
+    }
+}

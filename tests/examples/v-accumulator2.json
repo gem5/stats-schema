@@ -1,0 +1,7 @@
+{
+    "miss_latency": {
+        "type": "Accumulator",
+        "value": 200,
+        "count": 10
+    }
+}

@@ -93,9 +93,28 @@
       "$comment": "The `oneOf` above requires either `value` and `bins` or `value`, `binSize`, and `numBins` to allow either description of a distribution."
     },
 
+    "accumulator": {
+      "allOf": [ {"$ref": "#/definitions/statistic"} ],
+      "title": "Accumulator",
+      "description": "An accumulation of statistic values. This is an aggregated statistic which is a summary of many samples of simulator events. The `value` is the total sum of all of the samples added to the accumulator. `count` is the total number of things added to the histogram. `min` and `max` are the minimum and maximum of the samples added to the distribution. `sumSquared` is the sum of each sample squared. The datatype specifies the type of `value`, `min`, `max`, and `sumSquared`.",
+
+      "properties": {
+        "type": { "const": "Accumulator" },
+        "value": { "type": "number" },
+        "count": { "type": "integer", "minimum": 0 },
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "sumSquared": { "type": "integer", "minimum": 0},
+        "datatype": { "$ref": "#/definitions/storageType" }
+      },
+
+      "required": ["value", "count"]
+    },
+
     "strictStats" : {
       "anyOf": [
         {"$ref": "#/definitions/scalar"},
+        {"$ref": "#/definitions/accumulator"},
         {"$ref": "#/definitions/distribution"}
       ],
 
