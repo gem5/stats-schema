@@ -66,7 +66,7 @@
     "distribution": {
       "allOf": [ {"$ref": "#/definitions/statistic"} ],
       "title": "Distribution",
-      "description": "A distribution of statistic values. The `value` property holds the number of instances in each bin (i.e., this is a histogram). Bins can be defined either with a set size by using `binSize` and `numBins`, or `bins` can be defined with an array. The value should be an array with a length equal to `numBins` or the length of `bins` - 1. If defined as an array, the `bins` property has the following form: `[bin0 start, bin0 end, bin1 end, bin2 end, ... binN end]`.",
+      "description": "A distribution of statistic values. This is an aggregated statistic which is a summary of many sampled simulator events. The `value` property holds the number of instances in each bin (i.e., this is a histogram). Bins can be defined either with a set size by using `binSize` and `numBins`, or `bins` can be defined with an array. The value should be an array with a length equal to `numBins` or the length of `bins` - 1. If defined as an array, the `bins` property has the following form: `[bin0 start, bin0 end, bin1 end, bin2 end, ... binN end]`. `count` is the total number of things added to the histogram. `min` and `max` are the minimum and maximum of the samples added to the distribution. `sumSquared` is the sum of each sample squared.",
 
       "properties": {
         "type": { "const": "Distribution" },
@@ -79,7 +79,11 @@
           "items": { "type": "number" }
         },
         "binSize": { "type": "number", "minimum": 0 },
-        "numBins": { "type": "integer", "minimum": 1 }
+        "numBins": { "type": "integer", "minimum": 1 },
+        "count": { "type": "integer", "minimum": 0 },
+        "min": { "type": "integer", "minimum": 0 },
+        "max": { "type": "integer", "minimum": 0 },
+        "sumSquared": { "type": "integer", "minimum": 0 }
       },
       "oneOf": [
         {
