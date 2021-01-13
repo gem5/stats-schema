@@ -81,8 +81,8 @@
         "binSize": { "type": "number", "minimum": 0 },
         "numBins": { "type": "integer", "minimum": 1 },
         "count": { "type": "integer", "minimum": 0 },
-        "min": { "type": "integer", "minimum": 0 },
-        "max": { "type": "integer", "minimum": 0 },
+        "min": { "type": "number"},
+        "max": { "type": "number"},
         "sumSquared": { "type": "integer", "minimum": 0 }
       },
       "oneOf": [
