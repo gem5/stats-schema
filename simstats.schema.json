@@ -26,6 +26,18 @@
       "required": ["scaleFactor"]
     },
 
+    "bin": {
+      "type": "object",
+      "title": "A Distribution bin",
+      "description": "An object describing a single bin within a distribution.",
+      "properties" : {
+          "min": { "type": "number" },
+          "max": { "type": "number" },
+          "value": { "type": "integer", "minimum": 0}
+      },
+      "required": ["min","max","value"]
+    },
+
     "statistic" : {
       "type": "object",
       "title": "Statistic",
@@ -66,35 +78,17 @@
     "distribution": {
       "allOf": [ {"$ref": "#/definitions/statistic"} ],
       "title": "Distribution",
-      "description": "A distribution of statistic values. This is an aggregated statistic which is a summary of many sampled simulator events. The `value` property holds the number of instances in each bin (i.e., this is a histogram). Bins can be defined either with a set size by using `binSize` and `numBins`, or `bins` can be defined with an array. The value should be an array with a length equal to `numBins` or the length of `bins` - 1. If defined as an array, the `bins` property has the following form: `[bin0 start, bin0 end, bin1 end, bin2 end, ... binN end]`. `count` is the total number of things added to the histogram. `min` and `max` are the minimum and maximum of the samples added to the distribution. `sumSquared` is the sum of each sample squared.",
+      "description": "A distribution of statistic values. This is an aggregated statistic which is a summary of many sampled simulator events. The `value` property is an array of bins, with each bin recording the count of samples between a maximum and minimum range (inclusive). This may be viewed as a histogram, though they are no requirements for continious ranges, or equal sizing of bins. The array is ordered in an assending manner from the bin with the smallest minimum to that of the largest minimum. In cases where the maximum value of a bin is equal to that of the minimum value of the next bin, any samples of that value will be counted in the preceeding bin (i.e., that where the sample's value is equal to that of the bin's stated range minimum).",
 
       "properties": {
         "type": { "const": "Distribution" },
         "value": {
           "type": "array",
-          "items": { "type": "integer", "minimum": 0 }
-          },
-        "bins": {
-          "type": "array",
-          "items": { "type": "number" }
+          "items": { "$ref": "#/definitions/bin" }
         },
-        "binSize": { "type": "number", "minimum": 0 },
-        "numBins": { "type": "integer", "minimum": 1 },
-        "count": { "type": "integer", "minimum": 0 },
-        "min": { "type": "integer", "minimum": 0 },
-        "max": { "type": "integer", "minimum": 0 },
         "sumSquared": { "type": "integer", "minimum": 0 }
       },
-      "oneOf": [
-        {
-          "required": ["value", "bins"]
-        },
-        {
-          "required": ["value", "binSize", "numBins"]
-        }
-      ],
-
-      "$comment": "The `oneOf` above requires either `value` and `bins` or `value`, `binSize`, and `numBins` to allow either description of a distribution."
+      "required": ["value"]
     },
 
     "accumulator": {
