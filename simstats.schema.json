@@ -33,10 +33,10 @@
       "properties" : {
           "min": { "type": "number" },
           "max": { "type": "number" },
-          "count": { "type": "integer", "minimum": 0}
+          "count": { "type": "integer", "minimum": 0 }
       },
-      "required": ["min","max","value"]
-    },
+      "required": ["min","max","count"]
+   },
 
     "statistic" : {
       "type": "object",
@@ -84,9 +84,21 @@
         "type": { "const": "Distribution" },
         "value": {
           "type": "array",
-          "items": { "$ref": "#/definitions/bin" }
+          "items": {
+              "oneOf": [
+                  {"$ref": "#/definitions/bin"},
+                  {"type": "integer"}
+              ]
+           }
         },
-        "sumSquared": { "type": "integer", "minimum": 0 }
+        "binSize": { "type": "number"},
+        "sum": { "type": "number" },
+        "minVal": { "type": "number" },
+        "maxVal": { "type": "number" },
+        "sumSquared": { "type": "integer", "minimum": 0 },
+        "underflow": { "type":" integer", "minimum": 0 },
+        "overflow": { "type": "integer", "maximum": 0 },
+        "logs": { "type": "number"}
       },
       "required": ["value"]
     },
